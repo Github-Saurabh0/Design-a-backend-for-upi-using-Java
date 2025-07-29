@@ -55,6 +55,36 @@ This project is a full-fledged backend simulation of a UPI (Unified Payments Int
 
 ---
 
+## How to Run Locally
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/Github-Saurabh0/Design-a-backend-for-upi-using-Java.git
+cd Design-a-backend-for-upi-using-Java
+```
+
+### 2. Set up PostgreSQL database
+Create a DB named `upi_backend` and update your `application.yml`:
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/upi_backend
+    username: postgres
+    password: your_password
+```
+
+### 3. Run the application
+```bash
+./mvnw spring-boot:run
+```
+
+### 4. Access Swagger UI
+```
+http://localhost:8080/swagger-ui.html
+```
+
+---
+
 ## Folder Structure
 
 ```
