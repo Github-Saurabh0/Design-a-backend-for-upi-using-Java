@@ -2,6 +2,8 @@
 
 A comprehensive backend system for UPI (Unified Payment Interface) built with Java and Spring Boot.
 
+> Note: This is a simulated backend intended for learning and prototyping. Real UPI integration requires approval from NPCI/RBI.
+
 ## Features
 
 - User authentication and authorization with JWT
