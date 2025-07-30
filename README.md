@@ -1,116 +1,149 @@
 # UPI Backend System using Java & Spring Boot
 
-This project is a full-fledged backend simulation of a UPI (Unified Payments Interface) system using **Java**, **Spring Boot**, and **PostgreSQL**. It covers essential features like user onboarding, bank account linking, VPA creation, P2P transactions, and transaction history.
+A comprehensive backend system for UPI (Unified Payment Interface) built with Java and Spring Boot.
 
-> Note: This is a simulated backend intended for learning and prototyping. Real UPI integration requires approval from NPCI/RBI.
+## Features
 
----
-
-## Tech Stack
-
-- **Java 17**
-- **Spring Boot**
-- **PostgreSQL**
-- **Spring Security + JWT**
-- **REST APIs**
-- **Lombok**, **MapStruct**, **ModelMapper**
-- **Swagger/OpenAPI** (for testing)
-- **Maven**
-
----
-
-## Modules Included
-
-| Module               | Features Covered |
-|----------------------|------------------|
-| **User Service**     | Register/Login, JWT Auth |
-| **Bank Service**     | Link bank, get balance |
-| **VPA Service**      | Create/manage UPI IDs |
-| **Transfer Service** | P2P money transfer |
-| **Transaction Logs** | History, UTR, status |
-| **Security**         | Encrypted UPI PIN, JWT-based auth |
-| **Admin**            | Basic fraud protection (planned) |
-
----
-
-## Endpoints (Sample)
-
-| Method | Endpoint              | Description             |
-|--------|------------------------|-------------------------|
-| POST   | `/auth/register`       | Register new user       |
-| POST   | `/auth/login`          | User login              |
-| POST   | `/bank/link`           | Link a bank account     |
-| POST   | `/upi/create-vpa`      | Generate a VPA ID       |
-| POST   | `/upi/transfer`        | Transfer funds via VPA  |
-| GET    | `/upi/history/{vpa}`   | Get transaction history |
-
----
-
-## Security Features
-
-- JWT Authentication
-- Encrypted UPI PIN
+- User authentication and authorization with JWT
+- Bank account management
+- Virtual Payment Address (VPA) management
+- Transaction processing
 - Role-based access control
-- Input validation & exception handling
+- API documentation with Swagger/OpenAPI
 
----
+## Technology Stack
 
-## How to Run Locally
+- Java 17
+- Spring Boot 2.7.x
+- Spring Security
+- Spring Data JPA
+- PostgreSQL (with H2 for testing)
+- JWT for authentication
+- Lombok for reducing boilerplate code
+- ModelMapper for DTO conversions
+- Swagger/OpenAPI for API documentation
 
-### 1. Clone the repository
+## Project Structure
+
+```
+src/main/java/com/upi/
+├── config/                  # Configuration classes
+├── controller/              # REST controllers
+├── dto/                     # Data Transfer Objects
+│   ├── auth/                # Authentication DTOs
+│   ├── bank/                # Bank account DTOs
+│   ├── transaction/         # Transaction DTOs
+│   └── vpa/                 # VPA DTOs
+├── exception/               # Exception handling
+├── model/                   # Entity classes
+├── repository/              # JPA repositories
+├── security/                # Security configuration
+│   ├── jwt/                 # JWT utilities
+│   └── services/            # Security services
+├── service/                 # Service interfaces
+│   └── impl/                # Service implementations
+└── util/                    # Utility classes
+```
+
+## Getting Started
+
+### Prerequisites
+
+- Java 17 or higher
+- Maven 3.6 or higher
+- PostgreSQL 12 or higher
+
+### Database Setup
+
+1. Create a PostgreSQL database named `upidb`:
+
+```sql
+CREATE DATABASE upidb;
+```
+
+2. Update the database configuration in `application.properties` if needed:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/upidb
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+```
+
+### Building and Running
+
+1. Clone the repository:
+
 ```bash
 git clone https://github.com/Github-Saurabh0/Design-a-backend-for-upi-using-Java.git
 cd Design-a-backend-for-upi-using-Java
 ```
 
-### 2. Set up PostgreSQL database
-Create a DB named `upi_backend` and update your `application.yml`:
-```yaml
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/upi_backend
-    username: postgres
-    password: your_password
-```
+2. Build the project:
 
-### 3. Run the application
 ```bash
-./mvnw spring-boot:run
+mvn clean install
 ```
 
-### 4. Access Swagger UI
-```
-http://localhost:8080/swagger-ui.html
-```
+3. Run the application:
 
----
-
-## Folder Structure
-
-```
-src/main/java/com/upi
-├── controller
-├── service
-├── model
-├── dto
-├── repository
-├── security
-├── util
-└── config
+```bash
+mvn spring-boot:run
 ```
 
----
+The application will start on port 8080 by default.
 
-## Features To Add (Upcoming)
+## API Documentation
 
-- UPI QR code generation (`upi://pay`)
-- UTR system & dispute handling
-- WebSocket for real-time status
-- NPCI sandbox/mock gateway integration
-- Admin dashboard for logs/fraud
-- Transaction rollback & retry mechanism
+Swagger UI is available at: http://localhost:8080/swagger-ui.html
 
----
+API docs are available at: http://localhost:8080/api-docs
+
+## Authentication
+
+### Register a new user
+
+```
+POST /api/auth/signup
+```
+
+Request body:
+```json
+{
+  "username": "johndoe",
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com",
+  "phone": "1234567890",
+  "password": "password123",
+  "roles": ["user"]
+}
+```
+
+### Login
+
+```
+POST /api/auth/signin
+```
+
+Request body:
+```json
+{
+  "username": "johndoe",
+  "password": "password123"
+}
+```
+
+Response:
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "id": 1,
+  "username": "johndoe",
+  "email": "john.doe@example.com",
+  "phone": "1234567890",
+  "roles": ["ROLE_USER"]
+}
+```
 
 ## Author
 
